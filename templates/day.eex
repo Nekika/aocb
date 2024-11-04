@@ -1,0 +1,22 @@
+defmodule Day<%= problem.day %> do<%= for {_part, index} <- Enum.with_index(problem.parts) do%><%= if index > 0, do: "\n" %>
+  def part_<%= index + 1 %>(input) when is_binary(input) do
+    raise "not implemented"
+  end<% end %>
+end
+
+input = File.read!("day<%= problem.day %>_input.txt")
+<%= for {part, index} <- Enum.with_index(problem.parts) do%>
+# Test part <%= index + 1 %>
+
+"""
+<%= part.sample %>
+"""
+|> Day<%= problem.day %>.part_<%= index + 1 %>()
+|> then(&IO.puts("Part <%= index + 1 %> result with sample data : #{&1}"))
+
+# Solve part <%= index + 1 %>
+
+input
+|> Day<%= problem.day %>.part_<%= index + 1 %>()
+|> then(&IO.puts("Part <%= index + 1 %> result with real input : #{&1}"))
+<% end %>
